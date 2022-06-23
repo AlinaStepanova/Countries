@@ -1,2 +1,2 @@
 const String countriesTitle = "Countries";
-const String baseUrl = "https://countries.trevorblades.com,";
+const String baseUrl = "https://countries.trevorblades.com";
