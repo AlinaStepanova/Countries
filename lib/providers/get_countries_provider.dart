@@ -28,21 +28,27 @@ class GetCounriesProvider extends ChangeNotifier {
       }
       notifyListeners();
     } else {
-      _countries = result.data;
+      if (result.data == null) {
+        _countries = [];
+      } else {
+        _countries = result.data!['countries'] ?? [];
+      }
       notifyListeners();
     }
   }
 
-  dynamic getResponseData() {
-    if (_countries.isNotEmpty) {
-      final data = _countries;
+  String getCountryFlag(int index) {
+    var country = _countries[index];
+    return country['emoji'] ?? "";
+  }
 
-      print(data['countries']);
+  String getCountryName(int index) {
+    var country = _countries[index];
+    return country['name'] ?? "";
+  }
 
-      return data['countries'] ?? {};
-    } else {
-      return {};
-    }
+  int getLenght() {
+    return _countries.length;
   }
 
   void clear() {

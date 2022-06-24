@@ -4,6 +4,7 @@ class GetCountriesSchema {
     countries {
       code
       name
+      emoji
     }
   }
   """;
