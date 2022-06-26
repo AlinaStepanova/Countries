@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:countries/models/country.dart';
 import 'package:countries/schemas/get_countries_schema.dart';
 import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -7,7 +10,7 @@ import '../schemas/data_source.dart';
 class GetCounriesProvider extends ChangeNotifier {
   String _response = '';
 
-  dynamic _countries = [];
+  List<Country> _countries = [];
 
   String get getResponse => _response;
 
@@ -31,7 +34,8 @@ class GetCounriesProvider extends ChangeNotifier {
       if (result.data == null) {
         _countries = [];
       } else {
-        _countries = result.data!['countries'] ?? [];
+        _countries = List<Country>.from(result.data!['countries']
+            .map((country) => Country.fromJson(country)));
       }
       notifyListeners();
     }
@@ -39,17 +43,17 @@ class GetCounriesProvider extends ChangeNotifier {
 
   String getCountryFlag(int index) {
     var country = _countries[index];
-    return country['emoji'] ?? "";
+    return country.emoji;
   }
 
   String getCountryName(int index) {
     var country = _countries[index];
-    return country['name'] ?? "";
+    return country.name;
   }
 
   String getCountryCode(int index) {
     var country = _countries[index];
-    return country['code'] ?? "";
+    return country.code;
   }
 
   int getLenght() {
