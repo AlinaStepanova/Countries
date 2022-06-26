@@ -1,3 +1,4 @@
+import 'package:countries/ui/country_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,8 +31,18 @@ class _CountriesPageState extends State<CountriesPage> {
         builder: (context, provider, child) {
           return ListView(
               children: List.generate(provider.getLenght(), (index) {
-            return CountryListItem(provider.getCountryFlag(index),
-                provider.getCountryName(index), () => {});
+            return CountryListItem(
+              provider.getCountryFlag(index),
+              provider.getCountryName(index),
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CountryDetailPage(
+                      code: provider.getCountryCode(index),
+                      name: provider.getCountryName(index)),
+                ),
+              ),
+            );
           }));
         },
       ),

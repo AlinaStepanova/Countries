@@ -26,9 +26,7 @@ class CountryListItem extends StatelessWidget {
       trailing: Icon(
         Icons.adaptive.arrow_forward_outlined,
       ),
-      onTap: () {
-        () => onClick();
-      },
+      onTap: () => onClick(),
     );
   }
 }

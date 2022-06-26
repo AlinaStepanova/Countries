@@ -47,6 +47,11 @@ class GetCounriesProvider extends ChangeNotifier {
     return country['name'] ?? "";
   }
 
+  String getCountryCode(int index) {
+    var country = _countries[index];
+    return country['code'] ?? "";
+  }
+
   int getLenght() {
     return _countries.length;
   }
