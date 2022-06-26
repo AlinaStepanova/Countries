@@ -1,4 +1,5 @@
 import 'package:countries/providers/get_countries_provider.dart';
+import 'package:countries/providers/get_country_details_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => GetCounriesProvider()),
+        ChangeNotifierProvider(create: (_) => GetCounryDetailsProvider()),
       ],
       child: MaterialApp(
         title: countriesTitle,

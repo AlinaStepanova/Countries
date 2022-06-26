@@ -1,4 +1,6 @@
+import 'package:countries/providers/get_country_details_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CountryDetailPage extends StatefulWidget {
   const CountryDetailPage({Key? key, required this.code, required this.name})
@@ -13,14 +15,21 @@ class CountryDetailPage extends StatefulWidget {
 
 class _CountryDetailPageState extends State<CountryDetailPage> {
   @override
+  void initState() {
+    super.initState();
+    context.read<GetCounryDetailsProvider>().getCountryDetails(widget.code);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.name),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(widget.code),
+      body: Consumer<GetCounryDetailsProvider>(
+        builder: (context, provider, child) {
+          return Text(provider.getCountry()?.capital ?? "hellp");
+        },
       ),
     );
   }
