@@ -28,7 +28,7 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
       ),
       body: Consumer<GetCounryDetailsProvider>(
         builder: (context, provider, child) {
-          return Text(provider.getCountry()?.capital ?? "hellp");
+          return Text(provider.getCountry()?.continent.name ?? "hellp");
         },
       ),
     );

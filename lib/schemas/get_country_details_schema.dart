@@ -7,6 +7,12 @@ class GetCountryDetailsSchema {
         emoji
         capital
         currency
+        languages {
+          name
+        }
+        continent {
+          name
+        }
       }
     }
   """;
