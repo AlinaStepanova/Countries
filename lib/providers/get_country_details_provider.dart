@@ -12,7 +12,7 @@ class GetCounryDetailsProvider extends ChangeNotifier {
 
   bool _showMore = true;
 
-  CountryDetails? _country;
+  CountryDetails _country = CountryDetails.empty();
 
   String get getErrorMessage => _errorMessage;
   bool get showMore => _showMore;
@@ -22,6 +22,7 @@ class GetCounryDetailsProvider extends ChangeNotifier {
   void getCountryDetails(String code) async {
     _showMore = true;
     _errorMessage = "";
+    _country = CountryDetails.empty();
     ValueNotifier<GraphQLClient> _client = _dataSourse.getClient();
     QueryResult result = await _client.value.query(
       QueryOptions(
@@ -38,7 +39,7 @@ class GetCounryDetailsProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       if (result.data == null) {
-        _country = null;
+        _country = CountryDetails.empty();
       } else {
         _country = CountryDetails.fromJson(result.data!["country"]);
       }
@@ -47,8 +48,7 @@ class GetCounryDetailsProvider extends ChangeNotifier {
   }
 
   CountryDetails getCountry() {
-    return _country ??
-        CountryDetails("", "", "", "", "", [], [], Continent(""));
+    return _country;
   }
 
   void updateShowButtonState() {

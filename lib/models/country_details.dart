@@ -22,5 +22,8 @@ class CountryDetails {
   factory CountryDetails.fromJson(Map<String, dynamic> json) =>
       _$CountryDetailsFromJson(json);
 
+  factory CountryDetails.empty() =>
+      CountryDetails("", "", "", "", "", [], [], Continent(""));
+
   Map<String, dynamic> toJson() => _$CountryDetailsToJson(this);
 }
