@@ -1,4 +1,3 @@
-import 'package:countries/models/continent.dart';
 import 'package:countries/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
