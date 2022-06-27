@@ -52,10 +52,10 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
                       title: const ListTitle(title: continentText),
                       subtitle: Text(country.continent.name),
                     ),
-                    ...buildListOfLanguages(
+                    ...buildListOfSubtitles(lantuagesText,
                         provider.showMore ? [] : country.languages),
-                    ...buildListOfStates(
-                        provider.showMore ? [] : country.states),
+                    ...buildListOfSubtitles(
+                        statesText, provider.showMore ? [] : country.states),
                     if (country.states.isNotEmpty ||
                         country.languages.isNotEmpty)
                       TextButton(
@@ -71,27 +71,18 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
     );
   }
 
-  List<Widget> buildListOfLanguages(List<Language> languages) {
+  List<Widget> buildListOfSubtitles(String title, List<Object> elements) {
     List<Widget> widgets = [];
 
-    if (languages.isNotEmpty) {
-      widgets.add(const ListTile(title: ListTitle(title: lantuagesText)));
+    if (elements.isNotEmpty) {
+      widgets.add(ListTile(title: ListTitle(title: title)));
 
-      for (var language in languages) {
-        widgets.add(CustomSubtitle(text: language.name));
-      }
-    }
-    return widgets;
-  }
-
-  List<Widget> buildListOfStates(List<country_state.State> states) {
-    List<Widget> widgets = [];
-
-    if (states.isNotEmpty) {
-      widgets.add(const ListTile(title: ListTitle(title: statesText)));
-
-      for (var state in states) {
-        widgets.add(CustomSubtitle(text: state.name));
+      for (var element in elements) {
+        if (element is Language) {
+          widgets.add(CustomSubtitle(text: element.name));
+        } else if (element is country_state.State) {
+          widgets.add(CustomSubtitle(text: element.name));
+        }
       }
     }
     return widgets;
