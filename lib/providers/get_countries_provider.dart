@@ -40,18 +40,30 @@ class GetCounriesProvider extends ChangeNotifier {
   }
 
   String getCountryFlag(int index) {
-    var country = _countries[index];
-    return country.emoji;
+    var flag = "";
+    if (_countries.isNotEmpty) {
+      var country = _countries[index];
+      flag = country.emoji;
+    }
+    return flag;
   }
 
   String getCountryName(int index) {
-    var country = _countries[index];
-    return country.name;
+    var name = "";
+    if (_countries.isNotEmpty) {
+      var country = _countries[index];
+      name = country.name;
+    }
+    return name;
   }
 
   String getCountryCode(int index) {
-    var country = _countries[index];
-    return country.code;
+    var code = "";
+    if (_countries.isNotEmpty) {
+      var country = _countries[index];
+      code = country.code;
+    }
+    return code;
   }
 
   int getLenght() {

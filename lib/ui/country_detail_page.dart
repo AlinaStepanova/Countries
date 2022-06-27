@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/language.dart';
+import '../utils/utils.dart';
 import 'widgets/custom_subtitle.dart';
 import 'widgets/list_title.dart';
 import '../models/state.dart' as country_state;
@@ -39,14 +40,14 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
               ListTile(
                   leading:
                       Text(country.emoji, style: const TextStyle(fontSize: 36)),
-                  title: const ListTitle(title: "Capital"),
+                  title: const ListTitle(title: capitalText),
                   subtitle: Text(country.capital ?? "-")),
               ListTile(
-                title: const ListTitle(title: "Currency"),
+                title: const ListTitle(title: currencyText),
                 subtitle: Text(country.currency ?? "-"),
               ),
               ListTile(
-                title: const ListTitle(title: "Continent"),
+                title: const ListTitle(title: continentText),
                 subtitle: Text(country.continent.name),
               ),
               ...buildListOfLanguages(
@@ -54,10 +55,8 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
               ...buildListOfStates(provider.showMore ? [] : country.states),
               if (country.states.isNotEmpty || country.languages.isNotEmpty)
                 TextButton(
-                  onPressed: () {
-                    provider.updateShowButtonState();
-                  },
-                  child: Text(provider.showMore ? "Show more" : "Show less"),
+                  onPressed: () => provider.updateShowButtonState(),
+                  child: Text(provider.showMore ? showMoreText : showLessText),
                 )
             ],
           );
@@ -70,7 +69,7 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
     List<Widget> widgets = [];
 
     if (languages.isNotEmpty) {
-      widgets.add(const ListTile(title: ListTitle(title: "Languages")));
+      widgets.add(const ListTile(title: ListTitle(title: lantuagesText)));
 
       for (var language in languages) {
         widgets.add(CustomSubtitle(text: language.name));
@@ -83,7 +82,7 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
     List<Widget> widgets = [];
 
     if (states.isNotEmpty) {
-      widgets.add(const ListTile(title: ListTitle(title: "States")));
+      widgets.add(const ListTile(title: ListTitle(title: statesText)));
 
       for (var state in states) {
         widgets.add(CustomSubtitle(text: state.name));

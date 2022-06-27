@@ -1,2 +1,9 @@
 const String countriesTitle = "Countries";
 const String baseUrl = "https://countries.trevorblades.com";
+const String showMoreText = "Show more";
+const String showLessText = "Show less";
+const String capitalText = "Capital";
+const String currencyText = "Currency";
+const String continentText = "Continent";
+const String lantuagesText = "Languages";
+const String statesText = "States";
