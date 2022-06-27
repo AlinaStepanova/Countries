@@ -40,10 +40,10 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
                   leading:
                       Text(country.emoji, style: const TextStyle(fontSize: 36)),
                   title: const ListTitle(title: "Capital"),
-                  subtitle: Text(country.capital)),
+                  subtitle: Text(country.capital ?? "-")),
               ListTile(
                 title: const ListTitle(title: "Currency"),
-                subtitle: Text(country.currency),
+                subtitle: Text(country.currency ?? "-"),
               ),
               ListTile(
                 title: const ListTitle(title: "Continent"),
@@ -52,12 +52,13 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
               ...buildListOfLanguages(
                   provider.showMore ? [] : country.languages),
               ...buildListOfStates(provider.showMore ? [] : country.states),
-              TextButton(
-                onPressed: () {
-                  provider.updateShowButtonState();
-                },
-                child: Text(provider.showMore ? "Show more" : "Show less"),
-              )
+              if (country.states.isNotEmpty || country.languages.isNotEmpty)
+                TextButton(
+                  onPressed: () {
+                    provider.updateShowButtonState();
+                  },
+                  child: Text(provider.showMore ? "Show more" : "Show less"),
+                )
             ],
           );
         },

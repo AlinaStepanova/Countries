@@ -11,8 +11,8 @@ CountryDetails _$CountryDetailsFromJson(Map<String, dynamic> json) =>
       json['name'] as String,
       json['code'] as String,
       json['emoji'] as String,
-      json['currency'] as String,
-      json['capital'] as String,
+      json['currency'] as String?,
+      json['capital'] as String?,
       (json['languages'] as List<dynamic>)
           .map((e) => Language.fromJson(e as Map<String, dynamic>))
           .toList(),

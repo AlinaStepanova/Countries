@@ -13,8 +13,8 @@ class CountryDetails {
   String name;
   String code;
   String emoji;
-  String currency;
-  String capital;
+  String? currency;
+  String? capital;
   List<Language> languages;
   List<State> states;
   Continent continent;
