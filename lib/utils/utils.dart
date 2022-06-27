@@ -7,3 +7,4 @@ const String currencyText = "Currency";
 const String continentText = "Continent";
 const String lantuagesText = "Languages";
 const String statesText = "States";
+const String internetConnectionErrorText = "Please check internet connection";

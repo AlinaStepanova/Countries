@@ -1,4 +1,5 @@
 import 'package:countries/models/continent.dart';
+import 'package:countries/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -7,29 +8,32 @@ import '../schemas/data_source.dart';
 import '../schemas/get_country_details_schema.dart';
 
 class GetCounryDetailsProvider extends ChangeNotifier {
-  String _response = '';
+  String _errorMessage = "";
 
   bool _showMore = true;
 
   CountryDetails? _country;
 
-  String get getResponse => _response;
+  String get getErrorMessage => _errorMessage;
   bool get showMore => _showMore;
 
   final DataSource _dataSourse = DataSource();
 
   void getCountryDetails(String code) async {
     _showMore = true;
+    _errorMessage = "";
     ValueNotifier<GraphQLClient> _client = _dataSourse.getClient();
-    QueryResult result = await _client.value.query(QueryOptions(
-        document: gql(GetCountryDetailsSchema.countryDetailsJson
-            .replaceFirst("\$code", code)),
-        fetchPolicy: FetchPolicy.networkOnly));
+    QueryResult result = await _client.value.query(
+      QueryOptions(
+          document: gql(GetCountryDetailsSchema.countryDetailsJson
+              .replaceFirst("\$code", code)),
+          fetchPolicy: FetchPolicy.networkOnly),
+    );
     if (result.hasException) {
       if (result.exception!.graphqlErrors.isEmpty) {
-        _response = "Internet is not found";
+        _errorMessage = internetConnectionErrorText;
       } else {
-        _response = result.exception!.graphqlErrors[0].message.toString();
+        _errorMessage = result.exception!.graphqlErrors[0].message.toString();
       }
       notifyListeners();
     } else {
@@ -49,11 +53,6 @@ class GetCounryDetailsProvider extends ChangeNotifier {
 
   void updateShowButtonState() {
     _showMore = !_showMore;
-    notifyListeners();
-  }
-
-  void clear() {
-    _response = '';
     notifyListeners();
   }
 }

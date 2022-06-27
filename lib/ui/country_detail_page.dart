@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/language.dart';
 import '../utils/utils.dart';
 import 'widgets/custom_subtitle.dart';
+import 'widgets/error_message_text.dart';
 import 'widgets/list_title.dart';
 import '../models/state.dart' as country_state;
 
@@ -35,31 +36,36 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
       body: Consumer<GetCounryDetailsProvider>(
         builder: (context, provider, child) {
           final country = provider.getCountry();
-          return ListView(
-            children: <Widget>[
-              ListTile(
-                  leading:
-                      Text(country.emoji, style: const TextStyle(fontSize: 36)),
-                  title: const ListTitle(title: capitalText),
-                  subtitle: Text(country.capital ?? "-")),
-              ListTile(
-                title: const ListTitle(title: currencyText),
-                subtitle: Text(country.currency ?? "-"),
-              ),
-              ListTile(
-                title: const ListTitle(title: continentText),
-                subtitle: Text(country.continent.name),
-              ),
-              ...buildListOfLanguages(
-                  provider.showMore ? [] : country.languages),
-              ...buildListOfStates(provider.showMore ? [] : country.states),
-              if (country.states.isNotEmpty || country.languages.isNotEmpty)
-                TextButton(
-                  onPressed: () => provider.updateShowButtonState(),
-                  child: Text(provider.showMore ? showMoreText : showLessText),
+          return provider.getErrorMessage.isEmpty
+              ? ListView(
+                  children: <Widget>[
+                    ListTile(
+                        leading: Text(country.emoji,
+                            style: const TextStyle(fontSize: 36)),
+                        title: const ListTitle(title: capitalText),
+                        subtitle: Text(country.capital ?? "-")),
+                    ListTile(
+                      title: const ListTitle(title: currencyText),
+                      subtitle: Text(country.currency ?? "-"),
+                    ),
+                    ListTile(
+                      title: const ListTitle(title: continentText),
+                      subtitle: Text(country.continent.name),
+                    ),
+                    ...buildListOfLanguages(
+                        provider.showMore ? [] : country.languages),
+                    ...buildListOfStates(
+                        provider.showMore ? [] : country.states),
+                    if (country.states.isNotEmpty ||
+                        country.languages.isNotEmpty)
+                      TextButton(
+                        onPressed: () => provider.updateShowButtonState(),
+                        child: Text(
+                            provider.showMore ? showMoreText : showLessText),
+                      )
+                  ],
                 )
-            ],
-          );
+              : ErrowMessageText(provider.getErrorMessage);
         },
       ),
     );

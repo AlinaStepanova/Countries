@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../providers/get_countries_provider.dart';
 import '../utils/utils.dart';
 import 'widgets/country_list_item.dart';
+import 'widgets/error_message_text.dart';
 
 class CountriesPage extends StatefulWidget {
   const CountriesPage({Key? key}) : super(key: key);
@@ -29,21 +30,23 @@ class _CountriesPageState extends State<CountriesPage> {
       backgroundColor: Colors.white,
       body: Consumer<GetCounriesProvider>(
         builder: (context, provider, child) {
-          return ListView(
-              children: List.generate(provider.getLenght(), (index) {
-            return CountryListItem(
-              provider.getCountryFlag(index),
-              provider.getCountryName(index),
-              () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CountryDetailPage(
-                      code: provider.getCountryCode(index),
-                      name: provider.getCountryName(index)),
-                ),
-              ),
-            );
-          }));
+          return provider.getErrorMessage.isEmpty
+              ? ListView(
+                  children: List.generate(provider.getLenght(), (index) {
+                  return CountryListItem(
+                    provider.getCountryFlag(index),
+                    provider.getCountryName(index),
+                    () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CountryDetailPage(
+                            code: provider.getCountryCode(index),
+                            name: provider.getCountryName(index)),
+                      ),
+                    ),
+                  );
+                }))
+              : ErrowMessageText(provider.getErrorMessage);
         },
       ),
     );
