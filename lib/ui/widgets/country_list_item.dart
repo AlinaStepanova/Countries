@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
+import 'list_title.dart';
+
 class CountryListItem extends StatelessWidget {
-  final String name;
   final String icon;
+  final String name;
   final Function onClick;
 
   const CountryListItem(
-    this.name,
     this.icon,
+    this.name,
     this.onClick, {
     Key? key,
   }) : super(key: key);
@@ -16,13 +18,10 @@ class CountryListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Text(
-        name,
+        icon,
         style: const TextStyle(fontSize: 24),
       ),
-      title: Text(
-        icon,
-        style: const TextStyle(fontSize: 18),
-      ),
+      title: ListTitle(title: name),
       trailing: Icon(
         Icons.adaptive.arrow_forward_outlined,
       ),

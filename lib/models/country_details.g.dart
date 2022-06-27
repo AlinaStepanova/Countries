@@ -16,6 +16,9 @@ CountryDetails _$CountryDetailsFromJson(Map<String, dynamic> json) =>
       (json['languages'] as List<dynamic>)
           .map((e) => Language.fromJson(e as Map<String, dynamic>))
           .toList(),
+      (json['states'] as List<dynamic>)
+          .map((e) => State.fromJson(e as Map<String, dynamic>))
+          .toList(),
       Continent.fromJson(json['continent'] as Map<String, dynamic>),
     );
 
@@ -27,5 +30,6 @@ Map<String, dynamic> _$CountryDetailsToJson(CountryDetails instance) =>
       'currency': instance.currency,
       'capital': instance.capital,
       'languages': instance.languages,
+      'states': instance.states,
       'continent': instance.continent,
     };

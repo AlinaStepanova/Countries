@@ -10,6 +10,9 @@ class GetCountryDetailsSchema {
         languages {
           name
         }
+        states {
+          name
+        }
         continent {
           name
         }
